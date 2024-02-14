@@ -1,10 +1,9 @@
 package components
 
 type FeatureBlockProps struct {
-	Title                 string
-	FeatureOptions        []FeatureTuple
-	SelectedFeature       string
-	UpdateSelectedFeature func(string)
+	Title          string
+	FeatureOptions []FeatureTuple
+	ModelString    string
 }
 
 templ FeatureBlock(props FeatureBlockProps) {
@@ -19,6 +18,8 @@ templ FeatureBlock(props FeatureBlockProps) {
 						<label>
 							<input
  								type="radio"
+ 								x-model={ props.ModelString }
+ 								value={ feature.Key }
 							/>
 							{ feature.Value }
 						</label>

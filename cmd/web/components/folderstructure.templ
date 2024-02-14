@@ -1,0 +1,58 @@
+package components
+
+import "go-blueprint-htmx/cmd/web/components/icons"
+
+templ FolderStructure() {
+	<div class="bg-white mt-6 shadow sm:rounded-lg">
+		<div class="px-4 py-5 sm:p-6">
+			<div class="flex items-center">
+				@icons.FolderIcon()
+				<p
+ 					class="inline"
+ 					x-bind:class="{'italic text-gray-500': projectName === ''}"
+ 					x-text="projectName !== '' ? projectName : 'my_project'"
+				></p>
+			</div>
+			<div class="ml-4">
+				<div class="flex items-center">
+					@icons.FolderIcon()
+					<p class="inline">cmd</p>
+				</div>
+				<div class="flex items-center">
+					@icons.FolderIcon()
+					<p class="inline">internal</p>
+				</div>
+				<div class="flex items-center">
+					@icons.FolderIcon()
+					<p class="inline">tests</p>
+				</div>
+				<div class="flex items-center">
+					@icons.GenericIcon()
+					<p class="inline">go.mod</p>
+				</div>
+				<div class="flex items-center">
+					@icons.GenericIcon()
+					<p class="inline">go.sum</p>
+				</div>
+				<div class="flex items-center">
+					@icons.GenericIcon()
+					<p class="inline">Makefile</p>
+				</div>
+				<div class="flex items-center">
+					@icons.InfoIcon()
+					<p class="inline">README.md</p>
+				</div>
+				<div class="flex items-center" x-show="selectedDatabase !== 'none'">
+					@icons.DockerYamlIcon()
+					<p class="inline">docker-compose.yaml</p>
+				</div>
+				// { selectedDB !== "none" ? (
+				//       <div class="flex items-center">
+				//         // <DockerYamlIcon />
+				//         <p class="inline">docker-compose.yaml</p>
+				//       </div>
+				//     ) : null }
+			</div>
+		</div>
+	</div>
+}

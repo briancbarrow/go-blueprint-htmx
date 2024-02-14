@@ -24,13 +24,13 @@ var databases = []FeatureTuple{
 }
 
 var frameworks = []FeatureTuple{
+	{"standard-library", "Standard Library"},
 	{"chi", "Chi"},
 	{"echo", "Echo"},
 	{"fiber", "Fiber"},
 	{"gin", "Gin"},
 	{"gorilla/mux", "Gorilla"},
 	{"httprouter", "HttpRouter"},
-	{"standard-library", "Standard Library"},
 }
 
 func Selection() templ.Component {
@@ -55,13 +55,14 @@ func Selection() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label><div class=\"mt-2\"><input type=\"text\" name=\"projectName\" id=\"projectName\" class=\"block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6\" placeholder=\"my_project\"></div></div><div class=\"grid grid-cols-2 gap-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label><div class=\"mt-2\"><input type=\"text\" name=\"projectName\" id=\"projectName\" class=\"block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6\" placeholder=\"my_project\" x-model=\"projectName\"></div></div><div class=\"grid grid-cols-2 gap-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = FeatureBlock(FeatureBlockProps{
 			Title:          "Database",
 			FeatureOptions: databases,
+			ModelString:    "selectedDatabase",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -69,11 +70,16 @@ func Selection() templ.Component {
 		templ_7745c5c3_Err = FeatureBlock(FeatureBlockProps{
 			Title:          "Framework",
 			FeatureOptions: frameworks,
+			ModelString:    "selectedFramework",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = FolderStructure().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -31,7 +31,7 @@ func Home() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex min-h-screen flex-col items-center justify-between px-24 py-16\"><div class=\"mx-auto max-w-7xl px-6 lg:px-8\"><div class=\"mx-auto max-w-2xl text-center\"><h2 class=\"text-2xl font-bold leading-10 tracking-tight text-gray-900\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex min-h-screen flex-col items-center justify-between px-24 py-16\" x-data=\"{ \n        selectedDatabase: &#39;none&#39;, \n        selectedFramework: &#39;standard-library&#39;,\n        projectName: &#39;&#39;,\n        }\"><div class=\"mx-auto max-w-7xl px-6 lg:px-8\"><div class=\"mx-auto max-w-2xl text-center\"><h2 class=\"text-2xl font-bold leading-10 tracking-tight text-gray-900\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -11,10 +11,9 @@ import "io"
 import "bytes"
 
 type FeatureBlockProps struct {
-	Title                 string
-	FeatureOptions        []FeatureTuple
-	SelectedFeature       string
-	UpdateSelectedFeature func(string)
+	Title          string
+	FeatureOptions []FeatureTuple
+	ModelString    string
 }
 
 func FeatureBlock(props FeatureBlockProps) templ.Component {
@@ -52,7 +51,23 @@ func FeatureBlock(props FeatureBlockProps) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><label><input type=\"radio\"> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><label><input type=\"radio\" x-model=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(props.ModelString))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" value=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(feature.Key))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

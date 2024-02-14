@@ -4,7 +4,14 @@ import "go-blueprint-htmx/cmd/web/components"
 
 templ Home() {
 	@Base() {
-		<main class="flex min-h-screen flex-col items-center justify-between px-24 py-16">
+		<main
+ 			class="flex min-h-screen flex-col items-center justify-between px-24 py-16"
+ 			x-data="{ 
+        selectedDatabase: 'none', 
+        selectedFramework: 'standard-library',
+        projectName: '',
+        }"
+		>
 			<div class="mx-auto max-w-7xl px-6 lg:px-8">
 				<div class="mx-auto max-w-2xl text-center">
 					<h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">
