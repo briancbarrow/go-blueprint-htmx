@@ -5,10 +5,11 @@ import (
 	"log"
 	"net/http"
 
+	"go-blueprint-htmx/cmd/web"
+
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"go-blueprint-htmx/cmd/web"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
@@ -17,8 +18,9 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	r.Get("/", s.HelloWorldHandler)
 	fileServer := http.FileServer(http.FS(web.Files))
+	r.Handle("/css/*", fileServer)
 	r.Handle("/js/*", fileServer)
-	r.Get("/web", templ.Handler(web.HelloForm()).ServeHTTP)
+	r.Get("/web", templ.Handler(web.Home()).ServeHTTP)
 	r.Post("/hello", web.HelloWebHandler)
 
 	return r

@@ -2,5 +2,5 @@ package web
 
 import "embed"
 
-//go:embed "js"
+//go:embed "js" "css"
 var Files embed.FS

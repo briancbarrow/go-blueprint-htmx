@@ -1,0 +1,30 @@
+package components
+
+type FeatureBlockProps struct {
+	Title                 string
+	FeatureOptions        []FeatureTuple
+	SelectedFeature       string
+	UpdateSelectedFeature func(string)
+}
+
+templ FeatureBlock(props FeatureBlockProps) {
+	<div class="bg-white mt-6 shadow sm:rounded-lg">
+		<div class="px-4 py-5 sm:p-6">
+			<h3 class="text-base font-semibold leading-6 text-gray-900">
+				{ props.Title }
+			</h3>
+			<div class="mt-2 max-w-xl text-sm text-gray-500">
+				for  _, feature := range props.FeatureOptions {
+					<div key={ feature.Key }>
+						<label>
+							<input
+ 								type="radio"
+							/>
+							{ feature.Value }
+						</label>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+}
