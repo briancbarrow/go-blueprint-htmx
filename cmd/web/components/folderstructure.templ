@@ -2,51 +2,114 @@ package components
 
 import "go-blueprint-htmx/cmd/web/components/icons"
 
-templ FolderStructure() {
-	<div class="bg-white mt-6 shadow sm:rounded-lg">
+templ FolderStructure(projectName, selectedDatabase string) {
+	<div id="folderStructure" class="bg-white mt-6 shadow sm:rounded-lg">
 		<div class="px-4 py-5 sm:p-6">
 			<div class="flex items-center">
 				@icons.FolderIcon()
 				<p
- 					class="inline"
- 					x-bind:class="{'italic text-gray-500': projectName === ''}"
- 					x-text="projectName !== '' ? projectName : 'my_project'"
-				></p>
+ 					class={ "inline italic", templ.KV("text-gray-500", projectName == "") }
+				>
+					if projectName == "" {
+						my_project
+					} else {
+						{ projectName }
+					}
+				</p>
 			</div>
-			<div class="ml-4">
-				<div class="flex items-center">
+			<ul class="ml-4 space-y-1">
+				<li>
 					@icons.FolderIcon()
-					<p class="inline">cmd</p>
-				</div>
-				<div class="flex items-center">
+					<p class="inline ml-2">cmd</p>
+					<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+						<li>
+							@icons.FolderIcon()
+							<p class="inline ml-2">api</p>
+							<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+								<li>
+									@icons.GenericIcon()
+									<p class="inline ml-2">main.go</p>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
 					@icons.FolderIcon()
 					<p class="inline">internal</p>
-				</div>
-				<div class="flex items-center">
+					if selectedDatabase != "none" {
+						<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+							<li>
+								@icons.FolderIcon()
+								<p class="inline">database</p>
+								<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+									<li>
+										@icons.GenericIcon()
+										<p class="inline">database.go</p>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					}
+					<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+						<li>
+							@icons.FolderIcon()
+							<p class="inline">server</p>
+							<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+								<li>
+									@icons.GenericIcon()
+									<p class="inline">routes.go</p>
+								</li>
+								<li>
+									@icons.GenericIcon()
+									<p class="inline">server.go</p>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
 					@icons.FolderIcon()
 					<p class="inline">tests</p>
-				</div>
-				<div class="flex items-center">
+					<ul>
+						<li>handler_test.go</li>
+					</ul>
+				</li>
+				<li>
 					@icons.GenericIcon()
 					<p class="inline">go.mod</p>
-				</div>
-				<div class="flex items-center">
+				</li>
+				<li>
 					@icons.GenericIcon()
 					<p class="inline">go.sum</p>
-				</div>
-				<div class="flex items-center">
+				</li>
+				<li>
+					@icons.GenericIcon()
+					<p class="inline">.env</p>
+				</li>
+				<li>
+					@icons.GenericIcon()
+					<p class="inline">air.toml</p>
+				</li>
+				<li>
+					@icons.GenericIcon()
+					<p class="inline">.gitignore</p>
+				</li>
+				<li>
 					@icons.GenericIcon()
 					<p class="inline">Makefile</p>
-				</div>
-				<div class="flex items-center">
+				</li>
+				<li>
 					<i class="fa-brands fa-markdown mr-2"></i>
 					<p class="inline">README.md</p>
-				</div>
-				<div class="flex items-center" x-show="selectedDatabase !== 'none'">
-					@icons.DockerYamlIcon()
-					<p class="inline">docker-compose.yaml</p>
-				</div>
-			</div>
+				</li>
+				if selectedDatabase != "none" && selectedDatabase != "sqlite" {
+					<li class="flex items-center">
+						@icons.DockerYamlIcon()
+						<p class="inline">docker-compose.yaml</p>
+					</li>
+				}
+			</ul>
 		</div>
 	</div>
 }

@@ -3,7 +3,7 @@ package components
 type FeatureBlockProps struct {
 	Title          string
 	FeatureOptions []FeatureTuple
-	ModelString    string
+	GroupName      string
 }
 
 templ FeatureBlock(props FeatureBlockProps) {
@@ -12,15 +12,20 @@ templ FeatureBlock(props FeatureBlockProps) {
 			<h3 class="text-base font-semibold leading-6 text-gray-900">
 				{ props.Title }
 			</h3>
-			<div class="mt-2 max-w-xl text-sm text-gray-500">
-				for  _, feature := range props.FeatureOptions {
-					<div key={ feature.Key }>
-						<label>
+			<div class="mt-2 max-w-xl text-sm text-gray-500 space-y-1">
+				for  i, feature := range props.FeatureOptions {
+					<div>
+						<label class="flex items-center">
 							<input
  								type="radio"
- 								x-model={ props.ModelString }
+ 								name={ props.GroupName }
  								value={ feature.Key }
+ 								class="mr-2"
+ 								checked?={ i == 0 }
+ 								hx-post="/update_structure"
+ 								hx-target="#folder-structure"
 							/>
+							// x-model={ props.ModelString }
 							{ feature.Value }
 						</label>
 					</div>

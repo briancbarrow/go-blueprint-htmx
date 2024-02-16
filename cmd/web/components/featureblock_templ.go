@@ -13,7 +13,7 @@ import "bytes"
 type FeatureBlockProps struct {
 	Title          string
 	FeatureOptions []FeatureTuple
-	ModelString    string
+	GroupName      string
 }
 
 func FeatureBlock(props FeatureBlockProps) templ.Component {
@@ -38,24 +38,16 @@ func FeatureBlock(props FeatureBlockProps) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h3><div class=\"mt-2 max-w-xl text-sm text-gray-500\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h3><div class=\"mt-2 max-w-xl text-sm text-gray-500 space-y-1\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		for _, feature := range props.FeatureOptions {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div key=\"")
+		for i, feature := range props.FeatureOptions {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div><label class=\"flex items-center\"><input type=\"radio\" name=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(feature.Key))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><label><input type=\"radio\" x-model=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(props.ModelString))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(props.GroupName))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -67,7 +59,17 @@ func FeatureBlock(props FeatureBlockProps) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"mr-2\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			if i == 0 {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" checked")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/update_structure\" hx-target=\"#folder-structure\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -1,0 +1,66 @@
+package components
+
+type FeatureTuple struct {
+	Key   string
+	Value string
+}
+
+var databases = []FeatureTuple{
+	{"none", "None"},
+	{"mysql", "MySQL"},
+	{"postgres", "Postgres"},
+	{"sqlite", "SQLite"},
+	{"mongo", "MongoDB"},
+}
+
+var frameworks = []FeatureTuple{
+	{"standard-library", "Standard Library"},
+	{"chi", "Chi"},
+	{"echo", "Echo"},
+	{"fiber", "Fiber"},
+	{"gin", "Gin"},
+	{"gorilla/mux", "Gorilla"},
+	{"httprouter", "HttpRouter"},
+}
+
+templ Form() {
+	<form class="space-y-2" hx-boost="true" action="/update_structure" method="post">
+		<div class="mt-4">
+			<label
+ 				for="projectName"
+ 				class="block text-sm font-medium leading-6 text-gray-900"
+			>
+				Project Name
+			</label>
+			<div class="mt-2">
+				<input
+ 					type="text"
+ 					name="projectName"
+ 					id="projectName"
+ 					class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+ 					placeholder="my_project"
+ 					hx-trigger="keyup changed delay:500ms"
+ 					hx-post="/update_structure"
+ 					hx-target="#folder-structure"
+				/>
+			</div>
+		</div>
+		<div class="grid grid-cols-2 gap-4">
+			@FeatureBlock(FeatureBlockProps{
+      Title: "Database",
+      FeatureOptions: databases,
+      GroupName: "database",
+    })
+			@FeatureBlock(FeatureBlockProps{
+      Title: "Framework",
+      FeatureOptions: frameworks,
+      GroupName: "framework",
+    })
+		</div>
+	</form>
+	<div id="folder-structure" class="bg-white mt-6 shadow sm:rounded-lg">
+		<div class="px-4 py-5 sm:p-6">
+			<p>Make selections above to see the folder structure your project will have.</p>
+		</div>
+	</div>
+}

@@ -23,6 +23,8 @@ func (s *Server) RegisterRoutes() http.Handler {
 	r.Get("/web", templ.Handler(web.Home()).ServeHTTP)
 	r.Post("/hello", web.HelloWebHandler)
 
+	r.Post("/update_structure", web.UpdateStructureHandler)
+
 	return r
 }
 
