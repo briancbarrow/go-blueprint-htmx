@@ -116,16 +116,23 @@ func createGitInit(repoName, gitUrl string) {
 	// git init
 	// git remote add origin
 	os.Chdir("~/code")
+	fmt.Println("createGitInit", "Chdir to ~/code")
 	exec.Command("go-blueprint", "-d", "mysql", "-f", "chi", "-n", repoName).Run()
-
+	fmt.Println("createGitInit", "go-blueprint executed")
 	repoPath := fmt.Sprintf("~/code/%s", repoName)
 	// exec.Command("mkdir", repoPath).Run()
 	os.Chdir(repoPath)
+	fmt.Println("createGitInit", "Chdir to repoPath")
 	exec.Command("git", "init").Run()
+	fmt.Println("createGitInit", "Git init executed")
 	exec.Command("git", "remote", "add", "origin", gitUrl).Run()
+	fmt.Println("createGitInit", "Git remote add origin executed")
 	exec.Command("git", "add", ".").Run()
+	fmt.Println("createGitInit", "Git add executed")
 	exec.Command("git", "commit", "-m", "Initial commit from go-blueprint").Run()
+	fmt.Println("createGitInit", "Git commit executed")
 	exec.Command("git", "push", "-u", "origin", "main").Run()
+	fmt.Println("createGitInit", "Git push executed")
 	fmt.Println("createGitInit", "Git init created successfully")
 }
 
