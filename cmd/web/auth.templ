@@ -1,0 +1,13 @@
+package web
+
+import (
+	"os"
+	"fmt"
+)
+
+var client_id = os.Getenv("GA_CLIENT_ID")
+var url = fmt.Sprintf("https://github.com/login/oauth/authorize?client_id=%s", client_id)
+
+templ AuthPage() {
+	<a href={ templ.URL(url) }>Login with GitHub</a>
+}
