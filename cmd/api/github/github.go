@@ -19,7 +19,7 @@ type GetTokenRequestBody struct {
 }
 
 func HandleGetToken(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Println("HandleGetToken")
 	code := r.URL.Query().Get("code")
 	repoName := "temp-repo"
 
@@ -51,7 +51,7 @@ func HandleGetToken(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
-	fmt.Println("resp", resp)
+	fmt.Println("HandleGetToken", "After post request to get access token")
 	// parse response parameters
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
@@ -68,6 +68,8 @@ func HandleGetToken(w http.ResponseWriter, r *http.Request) {
 	}
 
 	accessToken := responseValues.Get("access_token")
+	fmt.Println("HandleGetToken", "accessToken: ", accessToken)
+
 	// repoName = responseValues.Get("state")
 
 	gitUrl := createRepo(accessToken, repoName)
@@ -81,6 +83,8 @@ type RepoResponse struct {
 }
 
 func createRepo(accessToken, repoName string) string {
+	fmt.Println("createRepo", "Creating repo...")
+
 	data := []byte(fmt.Sprintf(`{"name": %s,"description":"This is a test repo!","homepage":"https://github.com","private":false,"is_template":true}`, repoName))
 	req, err := http.NewRequest("POST", "https://api.github.com/user/repos", bytes.NewBuffer(data))
 	if err != nil {
@@ -103,10 +107,12 @@ func createRepo(accessToken, repoName string) string {
 	}
 
 	defer resp.Body.Close()
+	fmt.Println("createRepo", "Repo created successfully", repoResponse.GitUrl)
 	return repoResponse.GitUrl
 }
 
 func createGitInit(repoName, gitUrl string) {
+	fmt.Println("createGitInit", "Creating git init...")
 	// git init
 	// git remote add origin
 	os.Chdir("~/code")
@@ -120,6 +126,7 @@ func createGitInit(repoName, gitUrl string) {
 	exec.Command("git", "add", ".").Run()
 	exec.Command("git", "commit", "-m", "Initial commit from go-blueprint").Run()
 	exec.Command("git", "push", "-u", "origin", "main").Run()
+	fmt.Println("createGitInit", "Git init created successfully")
 }
 
 // func generateRandomString(n int) (string, error) {
