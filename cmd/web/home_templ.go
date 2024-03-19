@@ -31,7 +31,7 @@ func Home() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex min-h-screen flex-col items-center justify-between px-24 py-16\" x-data=\"{ \n        selectedDatabase: &#39;none&#39;, \n        selectedFramework: &#39;standard-library&#39;,\n        projectName: &#39;&#39;,\n        }\"><div class=\"mx-auto max-w-7xl px-6 lg:px-8\"><div class=\"mx-auto max-w-2xl text-center\"><h2 class=\"text-2xl font-bold leading-10 tracking-tight text-gray-900\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex min-h-screen flex-col items-center justify-between px-4 md:px-16 lg:px-24 lg:py-16\" x-data=\"{ \n        selectedDatabase: &#39;none&#39;, \n        selectedFramework: &#39;standard-library&#39;,\n        projectName: &#39;&#39;,\n        }\"><div class=\"mx-auto max-w-7xl px-6 lg:px-8 w-full\"><div class=\"mx-auto max-w-2xl text-center\"><h2 class=\"text-2xl font-bold leading-10 tracking-tight text-gray-900\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -44,17 +44,8 @@ func Home() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Var4 := `Choose your desired features, and we'll generate a new GitHub`
+			templ_7745c5c3_Var4 := `Choose your desired features, and we'll generate the command you can use to create your project.`
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Var5 := `repository pre-populated with the necessary boilerplate code.`
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

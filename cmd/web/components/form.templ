@@ -5,6 +5,20 @@ type FeatureTuple struct {
 	Value string
 }
 
+func GetCommandString(options OptionsStruct) string {
+	command := "go-blueprint create " + options.ProjectName + " --framework " + options.SelectedFramework
+	if options.SelectedDB != "none" {
+		command += " --driver " + options.SelectedDB
+	}
+	if len(options.AdvancedOptions) > 0 {
+		command += " --advanced"
+	}
+	for _, opt := range options.AdvancedOptions {
+		command += " --feature " + opt
+	}
+	return command
+}
+
 var databases = []FeatureTuple{
 	{"none", "None"},
 	{"mysql", "MySQL"},
@@ -21,6 +35,12 @@ var frameworks = []FeatureTuple{
 	{"gin", "Gin"},
 	{"gorilla/mux", "Gorilla"},
 	{"httprouter", "HttpRouter"},
+}
+
+var options = OptionsStruct{
+	SelectedDB:        "none",
+	SelectedFramework: "standard-library",
+	ProjectName:       "my_project",
 }
 
 templ Form() {
@@ -41,7 +61,8 @@ templ Form() {
  					placeholder="my_project"
  					hx-trigger="keyup changed delay:500ms"
  					hx-post="/update_structure"
- 					hx-target="#folder-structure"
+ 					hx-target="#results"
+ 					required
 				/>
 			</div>
 		</div>
@@ -56,11 +77,21 @@ templ Form() {
       FeatureOptions: frameworks,
       GroupName: "framework",
     })
+			@FeatureBlockCheckbox(FeatureBlockProps{
+      Title: "Advanced",
+      FeatureOptions: []FeatureTuple{
+        {"htmx", "HTMX support using Templ"},
+        {"githubaction", "CI/CD workflow setup using Github Actions"},
+        {"websocket", "Adds a Websocket endpoint"},
+      },
+      GroupName: "advancedOptions",
+    })
 		</div>
 	</form>
-	<div id="folder-structure" class="bg-white mt-6 shadow sm:rounded-lg">
-		<div class="px-4 py-5 sm:p-6">
+	<div id="results">
+		<div class="px-4 py-5 sm:p-6 bg-white mt-6 shadow sm:rounded-lg">
 			<p>Make selections above to see the folder structure your project will have.</p>
 		</div>
+		@FolderStructure(options, GetCommandString(options))
 	</div>
 }

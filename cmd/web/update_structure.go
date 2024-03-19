@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	"go-blueprint-htmx/cmd/web/components"
 	"net/http"
 )
@@ -13,8 +12,19 @@ func UpdateStructureHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	name := r.FormValue("projectName")
-	selectedDB := r.FormValue("database")
-	fmt.Println("selectedDB", selectedDB)
-	components.FolderStructure(name, selectedDB).Render(r.Context(), w)
+	advancedOptions, ok := r.Form["advancedOptions"]
+	if !ok {
+		// Handle the case where no checkbox was checked
+		advancedOptions = []string{}
+	}
+
+	options := components.OptionsStruct{
+		SelectedDB:        r.FormValue("database"),
+		SelectedFramework: r.FormValue("framework"),
+		ProjectName:       r.FormValue("projectName"),
+		AdvancedOptions:   advancedOptions,
+	}
+	commandStr := components.GetCommandString(options)
+
+	components.FolderStructure(options, commandStr).Render(r.Context(), w)
 }

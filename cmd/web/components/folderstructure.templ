@@ -2,18 +2,76 @@ package components
 
 import "go-blueprint-htmx/cmd/web/components/icons"
 
-templ FolderStructure(projectName, selectedDatabase string) {
-	<div id="folderStructure" class="bg-white mt-6 shadow sm:rounded-lg">
+type OptionsStruct struct {
+	SelectedDB        string
+	SelectedFramework string
+	ProjectName       string
+	AdvancedOptions   []string
+}
+
+templ FolderStructure(options OptionsStruct, commandStr string) {
+	<div class="prose prose-slate mt-6 max-w-none">
+		<p class="mb-1">Use this command to create a new project with the following folder structure. </p>
+		<pre class="!mt-2 overflow-x-scroll">
+			<code id="command">
+				// <span>
+				// 	go-blueprint create
+				// </span>
+				// if options.ProjectName != "" {
+				// 	<span>
+				// 		--name { options.ProjectName }
+				// 	</span>
+				// } else {
+				// 	<span>
+				// 		--name SET_YOUR_PROJECT_NAME
+				// 	</span>
+				// }
+				// if options.SelectedDB != "none" {
+				// 	<span>
+				// 		&nbsp--database { options.SelectedDB }
+				// 	</span>
+				// }
+				// if options.SelectedFramework != "none" {
+				// 	<span>
+				// 		&nbsp--framework { options.SelectedFramework }
+				// 	</span>
+				// }
+				// if len(options.AdvancedOptions) > 0 {
+				// 	<span>
+				// 		&nbsp--advanced
+				// 	</span>
+				// 	for _, option := range options.AdvancedOptions {
+				// 		<span>
+				// 			&nbsp--feature { option }
+				// 		</span>
+				// 	}
+				// }
+				{ commandStr }
+			</code>
+		</pre>
+	</div>
+	<script>
+    let text = document.getElementById('command').innerHTML;
+    const copyContent = async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+        console.log('Content copied to clipboard');
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    }
+  </script>
+	<div class="bg-white mt-2 shadow sm:rounded-lg">
 		<div class="px-4 py-5 sm:p-6">
 			<div class="flex items-center">
 				@icons.FolderIcon()
 				<p
- 					class={ "inline italic", templ.KV("text-gray-500", projectName == "") }
+ 					class={ "inline italic", templ.KV("text-gray-500", options.ProjectName == "") }
 				>
-					if projectName == "" {
+					if options.ProjectName == "" {
 						my_project
 					} else {
-						{ projectName }
+						{ options.ProjectName }
 					}
 				</p>
 			</div>
@@ -37,7 +95,7 @@ templ FolderStructure(projectName, selectedDatabase string) {
 				<li>
 					@icons.FolderIcon()
 					<p class="inline">internal</p>
-					if selectedDatabase != "none" {
+					if options.SelectedDB != "none" {
 						<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
 							<li>
 								@icons.FolderIcon()
@@ -103,7 +161,7 @@ templ FolderStructure(projectName, selectedDatabase string) {
 					<i class="fa-brands fa-markdown mr-2"></i>
 					<p class="inline">README.md</p>
 				</li>
-				if selectedDatabase != "none" && selectedDatabase != "sqlite" {
+				if options.SelectedDB != "none" && options.SelectedDB != "sqlite" {
 					<li class="flex items-center">
 						@icons.DockerYamlIcon()
 						<p class="inline">docker-compose.yaml</p>

@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for go-blueprint-htmx on 2024-02-15T20:57:45-07:00
+# fly.toml app configuration file generated for go-blueprint-htmx on 2024-02-20T20:12:46-07:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,11 +7,6 @@ app = 'go-blueprint-htmx'
 primary_region = 'ord'
 
 [build]
-  builder = 'paketobuildpacks/builder:base'
-  buildpacks = ['gcr.io/paketo-buildpacks/go']
-
-[env]
-  PORT = '8080'
 
 [http_service]
   internal_port = 8080
@@ -22,6 +17,6 @@ primary_region = 'ord'
   processes = ['app']
 
 [[vm]]
+  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 1024

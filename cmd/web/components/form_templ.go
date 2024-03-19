@@ -15,6 +15,20 @@ type FeatureTuple struct {
 	Value string
 }
 
+func GetCommandString(options OptionsStruct) string {
+	command := "go-blueprint create " + options.ProjectName + " --framework " + options.SelectedFramework
+	if options.SelectedDB != "none" {
+		command += " --driver " + options.SelectedDB
+	}
+	if len(options.AdvancedOptions) > 0 {
+		command += " --advanced"
+	}
+	for _, opt := range options.AdvancedOptions {
+		command += " --feature " + opt
+	}
+	return command
+}
+
 var databases = []FeatureTuple{
 	{"none", "None"},
 	{"mysql", "MySQL"},
@@ -31,6 +45,12 @@ var frameworks = []FeatureTuple{
 	{"gin", "Gin"},
 	{"gorilla/mux", "Gorilla"},
 	{"httprouter", "HttpRouter"},
+}
+
+var options = OptionsStruct{
+	SelectedDB:        "none",
+	SelectedFramework: "standard-library",
+	ProjectName:       "my_project",
 }
 
 func Form() templ.Component {
@@ -55,7 +75,7 @@ func Form() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label><div class=\"mt-2\"><input type=\"text\" name=\"projectName\" id=\"projectName\" class=\"block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6\" placeholder=\"my_project\" hx-trigger=\"keyup changed delay:500ms\" hx-post=\"/update_structure\" hx-target=\"#folder-structure\"></div></div><div class=\"grid grid-cols-2 gap-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label><div class=\"mt-2\"><input type=\"text\" name=\"projectName\" id=\"projectName\" class=\"block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6\" placeholder=\"my_project\" hx-trigger=\"keyup changed delay:500ms\" hx-post=\"/update_structure\" hx-target=\"#results\" required></div></div><div class=\"grid grid-cols-2 gap-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -75,7 +95,19 @@ func Form() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></form><div id=\"folder-structure\" class=\"bg-white mt-6 shadow sm:rounded-lg\"><div class=\"px-4 py-5 sm:p-6\"><p>")
+		templ_7745c5c3_Err = FeatureBlockCheckbox(FeatureBlockProps{
+			Title: "Advanced",
+			FeatureOptions: []FeatureTuple{
+				{"htmx", "HTMX support using Templ"},
+				{"githubaction", "CI/CD workflow setup using Github Actions"},
+				{"websocket", "Adds a Websocket endpoint"},
+			},
+			GroupName: "advancedOptions",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></form><div id=\"results\"><div class=\"px-4 py-5 sm:p-6 bg-white mt-6 shadow sm:rounded-lg\"><p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -84,7 +116,15 @@ func Form() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = FolderStructure(options, GetCommandString(options)).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

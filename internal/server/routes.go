@@ -3,7 +3,6 @@ package server
 import (
 	"net/http"
 
-	"go-blueprint-htmx/cmd/api/github"
 	"go-blueprint-htmx/cmd/web"
 
 	"github.com/a-h/templ"
@@ -18,10 +17,8 @@ func (s *Server) RegisterRoutes() http.Handler {
 	fileServer := http.FileServer(http.FS(web.Files))
 	r.Handle("/css/*", fileServer)
 	r.Handle("/js/*", fileServer)
-	r.Get("/app", templ.Handler(web.Home()).ServeHTTP)
-	r.Get("/auth", templ.Handler(web.AuthPage()).ServeHTTP)
-
-	r.Get("/get_token", github.HandleGetToken)
+	r.Get("/", templ.Handler(web.Home()).ServeHTTP)
+	// r.Get("/", templ.Handler(web.TW()).ServeHTTP)
 
 	r.Post("/update_structure", web.UpdateStructureHandler)
 
