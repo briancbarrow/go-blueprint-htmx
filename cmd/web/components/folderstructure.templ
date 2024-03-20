@@ -1,6 +1,7 @@
 package components
 
 import "go-blueprint-htmx/cmd/web/components/icons"
+import "strings"
 
 type OptionsStruct struct {
 	SelectedDB        string
@@ -9,43 +10,20 @@ type OptionsStruct struct {
 	AdvancedOptions   []string
 }
 
+func contains(slice []string, value string) bool {
+	for _, item := range slice {
+		if item == value {
+			return true
+		}
+	}
+	return false
+}
+
 templ FolderStructure(options OptionsStruct, commandStr string) {
 	<div class="prose prose-slate mt-6 max-w-none">
 		<p class="mb-1">Use this command to create a new project with the following folder structure. </p>
 		<pre class="!mt-2 overflow-x-scroll">
 			<code id="command">
-				// <span>
-				// 	go-blueprint create
-				// </span>
-				// if options.ProjectName != "" {
-				// 	<span>
-				// 		--name { options.ProjectName }
-				// 	</span>
-				// } else {
-				// 	<span>
-				// 		--name SET_YOUR_PROJECT_NAME
-				// 	</span>
-				// }
-				// if options.SelectedDB != "none" {
-				// 	<span>
-				// 		&nbsp--database { options.SelectedDB }
-				// 	</span>
-				// }
-				// if options.SelectedFramework != "none" {
-				// 	<span>
-				// 		&nbsp--framework { options.SelectedFramework }
-				// 	</span>
-				// }
-				// if len(options.AdvancedOptions) > 0 {
-				// 	<span>
-				// 		&nbsp--advanced
-				// 	</span>
-				// 	for _, option := range options.AdvancedOptions {
-				// 		<span>
-				// 			&nbsp--feature { option }
-				// 		</span>
-				// 	}
-				// }
 				{ commandStr }
 			</code>
 		</pre>
@@ -71,11 +49,33 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 					if options.ProjectName == "" {
 						my_project
 					} else {
-						{ options.ProjectName }
+						{ strings.ReplaceAll(options.ProjectName, " ", "_") }
 					}
 				</p>
 			</div>
 			<ul class="ml-4 space-y-1">
+				if contains(options.AdvancedOptions, "githubaction") {
+					<li>
+						@icons.FolderIcon()
+						<p class="inline">.github</p>
+						<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+							<li>
+								@icons.FolderIcon()
+								<p class="inline">workflows</p>
+								<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+									<li>
+										@icons.GenericIcon()
+										<p class="inline">go-test.yml</p>
+									</li>
+									<li>
+										@icons.GenericIcon()
+										<p class="inline">release.yml</p>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				}
 				<li>
 					@icons.FolderIcon()
 					<p class="inline ml-2">cmd</p>
@@ -90,6 +90,40 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 								</li>
 							</ul>
 						</li>
+						if contains(options.AdvancedOptions, "htmx") {
+							<li>
+								@icons.FolderIcon()
+								<p class="inline ml-2">web</p>
+								<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+									<li>
+										@icons.FolderIcon()
+										<p class="inline ml-2">js</p>
+										<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+											<li>
+												@icons.GenericIcon()
+												<p class="inline ml-2">htmx.min.js</p>
+											</li>
+										</ul>
+										<li>
+											@icons.GenericIcon()
+											<p class="inline ml-2">base.templ</p>
+										</li>
+										<li>
+											@icons.GenericIcon()
+											<p class="inline ml-2">efs.go</p>
+										</li>
+										<li>
+											@icons.GenericIcon()
+											<p class="inline ml-2">hello.go</p>
+										</li>
+										<li>
+											@icons.GenericIcon()
+											<p class="inline ml-2">hello.templ</p>
+										</li>
+									</li>
+								</ul>
+							</li>
+						}
 					</ul>
 				</li>
 				<li>
@@ -129,7 +163,7 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 				<li>
 					@icons.FolderIcon()
 					<p class="inline">tests</p>
-					<ul>
+					<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
 						<li>handler_test.go</li>
 					</ul>
 				</li>
@@ -137,6 +171,12 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 					@icons.GenericIcon()
 					<p class="inline">go.mod</p>
 				</li>
+				if contains(options.AdvancedOptions, "githubaction") {
+					<li>
+						@icons.GenericIcon()
+						<p class="inline">goreleaser.yml</p>
+					</li>
+				}
 				<li>
 					@icons.GenericIcon()
 					<p class="inline">go.sum</p>

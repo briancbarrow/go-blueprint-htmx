@@ -1,12 +1,18 @@
 package components
 
+import "strings"
+
 type FeatureTuple struct {
 	Key   string
 	Value string
 }
 
 func GetCommandString(options OptionsStruct) string {
-	command := "go-blueprint create " + options.ProjectName + " --framework " + options.SelectedFramework
+	projectName := strings.ReplaceAll(options.ProjectName, " ", "_")
+	if projectName == "" {
+		projectName = "SET_YOUR_PROJECT_NAME"
+	}
+	command := "go-blueprint create " + projectName + " --framework " + options.SelectedFramework
 	if options.SelectedDB != "none" {
 		command += " --driver " + options.SelectedDB
 	}
