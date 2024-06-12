@@ -5,6 +5,15 @@ import (
 	"net/http"
 )
 
+func contains(slice []string, value string) bool {
+	for _, item := range slice {
+		if item == value {
+			return true
+		}
+	}
+	return false
+}
+
 func UpdateStructureHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
@@ -16,6 +25,10 @@ func UpdateStructureHandler(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		// Handle the case where no checkbox was checked
 		advancedOptions = []string{}
+	}
+
+	if contains(advancedOptions, "tailwind") && !contains(advancedOptions, "htmx") {
+		advancedOptions = append(advancedOptions, "htmx")
 	}
 
 	options := components.OptionsStruct{
