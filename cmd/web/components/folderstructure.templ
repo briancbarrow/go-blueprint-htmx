@@ -44,7 +44,7 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 			<div class="flex items-center">
 				@icons.FolderIcon()
 				<p
- 					class={ "inline italic", templ.KV("text-gray-500", options.ProjectName == "") }
+					class={ "inline italic", templ.KV("text-gray-500", options.ProjectName == "") }
 				>
 					if options.ProjectName == "" {
 						my_project
@@ -97,11 +97,33 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 								<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
 									<li>
 										@icons.FolderIcon()
-										<p class="inline ml-2">js</p>
+										<p class="inline ml-2">assets</p>
 										<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+											if contains(options.AdvancedOptions, "tailwind") {
+												<li>
+													@icons.FolderIcon()
+													<p class="inline ml-2">css</p>
+													<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+														<li>
+															@icons.GenericIcon()
+															<p class="inline ml-2">input.css</p>
+														</li>
+														<li>
+															@icons.GenericIcon()
+															<p class="inline ml-2">output.css</p>
+														</li>
+													</ul>
+												</li>
+											}
 											<li>
-												@icons.GenericIcon()
-												<p class="inline ml-2">htmx.min.js</p>
+												@icons.FolderIcon()
+												<p class="inline ml-2">js</p>
+												<ul class="ml-4 border-l border-gray-200 pl-2 space-y-1">
+													<li>
+														@icons.GenericIcon()
+														<p class="inline ml-2">htmx.min.js</p>
+													</li>
+												</ul>
 											</li>
 										</ul>
 										<li>

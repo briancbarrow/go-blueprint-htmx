@@ -22,9 +22,11 @@ func GetCommandString(options OptionsStruct) string {
 	if projectName == "" {
 		projectName = "SET_YOUR_PROJECT_NAME"
 	}
-	command := "go-blueprint create " + projectName + " --framework " + options.SelectedFramework
+	command := "go-blueprint create --name " + projectName + " --framework " + options.SelectedFramework
 	if options.SelectedDB != "none" {
 		command += " --driver " + options.SelectedDB
+	} else {
+		command += " --driver none"
 	}
 	if len(options.AdvancedOptions) > 0 {
 		command += " --advanced"
@@ -72,7 +74,7 @@ func Form() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"space-y-2\" hx-boost=\"true\" action=\"/update_structure\" method=\"post\"><div class=\"mt-4\"><label for=\"projectName\" class=\"block text-sm font-medium leading-6 text-gray-900\">Project Name</label><div class=\"mt-2\"><input type=\"text\" name=\"projectName\" id=\"projectName\" class=\"block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6\" placeholder=\"my_project\" hx-trigger=\"keyup changed delay:500ms\" hx-post=\"/update_structure\" hx-target=\"#results\" required></div></div><div class=\"grid grid-cols-2 gap-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form class=\"space-y-2\" hx-boost=\"true\" action=\"/update_structure\" method=\"post\"><div class=\"mt-4\"><label for=\"projectName\" class=\"block text-sm font-medium leading-6 text-gray-900\">Project Name</label><div class=\"mt-2\"><input type=\"text\" name=\"projectName\" id=\"projectName\" class=\"block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6\" placeholder=\"my_project\" hx-trigger=\"keyup changed delay:500ms\" hx-post=\"/update_structure\" hx-target=\"#results\" required></div></div><div class=\"grid grid-cols-6 gap-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -95,9 +97,10 @@ func Form() templ.Component {
 		templ_7745c5c3_Err = FeatureBlockCheckbox(FeatureBlockProps{
 			Title: "Advanced",
 			FeatureOptions: []FeatureTuple{
-				{"htmx", "HTMX support using Templ"},
-				{"githubaction", "CI/CD workflow setup using Github Actions"},
-				{"websocket", "Adds a Websocket endpoint"},
+				{"htmx", "HTMX support using Templ."},
+				{"githubaction", "CI/CD workflow setup using Github Actions."},
+				{"websocket", "Adds a Websocket endpoint."},
+				{"tailwind", "Adds Tailwind config and allows for using the Tailwind CLI to compile css based on classes used."},
 			},
 			GroupName: "advancedOptions",
 		}).Render(ctx, templ_7745c5c3_Buffer)

@@ -7,7 +7,7 @@ type FeatureBlockCheckboxProps struct {
 }
 
 templ FeatureBlockCheckbox(props FeatureBlockProps) {
-	<div class="bg-white mt-6 shadow sm:rounded-lg">
+	<div class="bg-white mt-6 shadow sm:rounded-lg col-span-4 col-start-2 mb-6">
 		<div class="px-4 py-5 sm:p-6">
 			<h3 class="text-base font-semibold leading-6 text-gray-900">
 				{ props.Title }
@@ -15,14 +15,14 @@ templ FeatureBlockCheckbox(props FeatureBlockProps) {
 			<div class="mt-2 max-w-xl text-sm text-gray-500 space-y-1">
 				for  _, feature := range props.FeatureOptions {
 					<div>
-						<label class="flex items-center">
+						<label class="flex items-start">
 							<input
- 								type="checkbox"
- 								name={ props.GroupName }
- 								value={ feature.Key }
- 								class="mr-2"
- 								hx-post="/update_structure"
- 								hx-target="#results"
+								type="checkbox"
+								name={ props.GroupName }
+								value={ feature.Key }
+								class="mr-2 mt-1"
+								hx-post="/update_structure"
+								hx-target="#results"
 							/>
 							// x-model={ props.ModelString }
 							{ feature.Value }

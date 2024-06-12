@@ -7,7 +7,7 @@ type FeatureBlockProps struct {
 }
 
 templ FeatureBlock(props FeatureBlockProps) {
-	<div class="bg-white mt-6 shadow sm:rounded-lg">
+	<div class="bg-white mt-6 shadow sm:rounded-lg col-span-3">
 		<div class="px-4 py-5 sm:p-6">
 			<h3 class="text-base font-semibold leading-6 text-gray-900">
 				{ props.Title }
@@ -17,13 +17,13 @@ templ FeatureBlock(props FeatureBlockProps) {
 					<div>
 						<label class="flex items-center">
 							<input
- 								type="radio"
- 								name={ props.GroupName }
- 								value={ feature.Key }
- 								class="mr-2"
- 								checked?={ i == 0 }
- 								hx-post="/update_structure"
- 								hx-target="#results"
+								type="radio"
+								name={ props.GroupName }
+								value={ feature.Key }
+								class="mr-2"
+								checked?={ i == 0 }
+								hx-post="/update_structure"
+								hx-target="#results"
 							/>
 							// x-model={ props.ModelString }
 							{ feature.Value }

@@ -29,7 +29,7 @@ func FeatureBlock(props FeatureBlockProps) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"bg-white mt-6 shadow sm:rounded-lg\"><div class=\"px-4 py-5 sm:p-6\"><h3 class=\"text-base font-semibold leading-6 text-gray-900\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"bg-white mt-6 shadow sm:rounded-lg col-span-3\"><div class=\"px-4 py-5 sm:p-6\"><h3 class=\"text-base font-semibold leading-6 text-gray-900\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -54,7 +54,7 @@ func FeatureBlock(props FeatureBlockProps) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(props.GroupName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/web/components/featureblock.templ`, Line: 21, Col: 31}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/web/components/featureblock.templ`, Line: 21, Col: 30}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -67,7 +67,7 @@ func FeatureBlock(props FeatureBlockProps) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(feature.Key)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/web/components/featureblock.templ`, Line: 22, Col: 28}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/web/components/featureblock.templ`, Line: 22, Col: 27}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
