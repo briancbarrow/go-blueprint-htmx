@@ -229,6 +229,12 @@ templ FolderStructure(options OptionsStruct, commandStr string) {
 						<p class="inline">docker-compose.yaml</p>
 					</li>
 				}
+				if contains(options.AdvancedOptions, "tailwind") {
+					<li>
+						@icons.GenericIcon()
+						<p class="inline">tailwind.config.js</p>
+					</li>
+				}
 			</ul>
 		</div>
 	</div>

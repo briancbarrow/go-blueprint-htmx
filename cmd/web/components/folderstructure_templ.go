@@ -425,6 +425,20 @@ func FolderStructure(options OptionsStruct, commandStr string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
+		if contains(options.AdvancedOptions, "tailwind") {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = icons.GenericIcon().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"inline\">tailwind.config.js</p></li>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
